@@ -4,7 +4,7 @@ LABEL authors="Anna"
 ENV PYTHONUNBUFFERED 1
 COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
 
-COPY . /app/
+COPY medical_app/ /app/
 WORKDIR /app
 RUN uv sync --frozen
 CMD set -xe; \
