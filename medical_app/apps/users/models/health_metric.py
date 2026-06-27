@@ -1,14 +1,14 @@
-from django.contrib.auth import get_user_model
+from django.conf import settings
 from django.db import models
-from users.models.choices import MetricChoices
+from .choices import MetricChoices
 
 
 class HealthMetric(models.Model):
     patient = models.ForeignKey(
-        to=get_user_model(), on_delete=models.CASCADE, related_name="patient_metrics"
+        to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="patient_metrics"
     )
     added_by = models.ForeignKey(
-        to=get_user_model(),
+        to=settings.AUTH_USER_MODEL,
         on_delete=models.SET_NULL,
         blank=True,
         null=True,

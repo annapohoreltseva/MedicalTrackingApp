@@ -22,12 +22,7 @@ sys.path.append(str(APPS_DIR))
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-9aksw$m4ko1@rk6_#@^o=q@sadi=p8ryb9q)v^nua9bv-pb=o7"
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = []
+# SECRET_KEY, DEBUG, and ALLOWED_HOSTS are loaded from environment variables via env.py
 
 
 # Application definition
@@ -69,7 +64,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = "core.wsgi.application"
+WSGI_APPLICATION = "apps.core.wsgi.application"
 
 
 # Database
@@ -118,4 +113,5 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 STATIC_URL = "static/"
+STATIC_ROOT = BASE_DIR / "staticfiles"
 AUTH_USER_MODEL = "users.User"
