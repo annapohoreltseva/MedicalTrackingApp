@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block title %}Metric Details #{{ object.pk }} — Medical App{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <div>
+    <h1 class="page-title">Health Metric Details</h1>
+    <p class="page-subtitle">Measurement record #{{ object.pk }}</p>
+  </div>
+  <div style="display: flex; gap: 0.75rem;">
+    <a href="{% url 'health_metric' %}" class="btn btn-secondary">&larr; Back to List</a>
+    <a href="{% url 'health_metric_update' object.pk %}" class="btn btn-primary">Edit Metric</a>
+    <a href="{% url 'health_metric_delete' object.pk %}" class="btn btn-outline-danger">Delete</a>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;">
+    <div>
+      <span class="badge badge-primary" style="font-size: 0.9rem; padding: 0.35rem 0.85rem;">
+        {{ object.get_metric_type_display|default:object.metric_type }}
+      </span>
+    </div>
+    <div style="color: var(--text-muted); font-size: 0.9rem;">
+      Measured on <strong>{{ object.measured_at|date:"F j, Y \a\t H:i" }}</strong>
+    </div>
+  </div>
+
+  <div class="detail-grid">
+    <div class="detail-item">
+      <div class="detail-label">Patient</div>
+      <div class="detail-value">{{ object.patient.get_full_name|default:object.patient.username }}</div>
+    </div>
+
+    <div class="detail-item">
+      <div class="detail-label">Value & Unit</div>
+      <div class="detail-value" style="color: var(--primary);">
+        {{ object.value }} <span style="font-size: 0.9rem; color: var(--text-muted);">{{ object.unit }}</span>
+      </div>
+    </div>
+
+    <div class="detail-item">
+      <div class="detail-label">Added By</div>
+      <div class="detail-value">{{ object.added_by.get_full_name|default:object.added_by.username|default:"N/A" }}</div>
+    </div>
+  </div>
+
+  {% if object.notes %}
+  <div style="margin-top: 1.5rem; background-color: var(--background); padding: 1.25rem; border-radius: var(--radius-md); border: 1px solid var(--border);">
+    <div class="detail-label" style="margin-bottom: 0.5rem;">Notes & Observations</div>
+    <p style="color: var(--text-main); white-space: pre-line; margin: 0; line-height: 1.6;">
+      {{ object.notes }}
+    </p>
+  </div>
+  {% else %}
+  <div style="margin-top: 1.5rem; color: var(--text-muted); font-style: italic; font-size: 0.9rem;">
+    No additional notes provided for this metric.
+  </div>
+  {% endif %}
+</div>
+{% endblock %}

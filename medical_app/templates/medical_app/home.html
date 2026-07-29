@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block title %}Home — Medical App{% endblock %}
+
+{% block content %}
+<section class="hero-card">
+  <h1 class="hero-title">Track Patient Metrics efficiently & accurately</h1>
+  <p class="hero-description">
+    Welcome to MedicalApp. Monitor vitals, track health trends, record patient metrics, and view real-time patient status with ease.
+  </p>
+  <div class="hero-actions">
+    <a href="{% url 'health_metric' %}" class="btn btn-primary" style="background-color: white; color: var(--primary);">View Health Metrics</a>
+    <a href="{% url 'health_metric_create' %}" class="btn btn-secondary" style="background: rgba(255,255,255,0.15); color: white; border-color: rgba(255,255,255,0.3);">+ Record New Metric</a>
+  </div>
+</section>
+
+<div class="grid-3">
+  <div class="card">
+    <div class="feature-icon">📊</div>
+    <h3 class="card-title" style="margin-bottom: 0.5rem;">Health Metrics</h3>
+    <p style="color: var(--text-muted); margin-bottom: 1.25rem;">
+      Log and analyze patient metrics including blood pressure, heart rate, temperature, glucose level, and more.
+    </p>
+    <a href="{% url 'health_metric' %}" class="btn btn-secondary btn-sm">Explore Metrics &rarr;</a>
+  </div>
+
+  <div class="card">
+    <div class="feature-icon">🩺</div>
+    <div class="card-header" style="padding-bottom:0.5rem; margin-bottom:0.5rem; border:none;">
+      <h3 class="card-title">Quick Entry</h3>
+    </div>
+    <p style="color: var(--text-muted); margin-bottom: 1.25rem;">
+      Fast data entry for clinicians and patients to record measurements with timestamps and doctor notes.
+    </p>
+    <a href="{% url 'health_metric_create' %}" class="btn btn-primary btn-sm">+ Add Measurement</a>
+  </div>
+
+  <div class="card">
+    <div class="feature-icon">🔒</div>
+    <h3 class="card-title" style="margin-bottom: 0.5rem;">Secure & Reliable</h3>
+    <p style="color: var(--text-muted); margin-bottom: 1.25rem;">
+      Built with privacy standards in mind, ensuring patient data integrity and controlled access levels.
+    </p>
+    <a href="{% url 'about' %}" class="btn btn-secondary btn-sm">Read About App &rarr;</a>
+  </div>
+</div>
+{% endblock %}

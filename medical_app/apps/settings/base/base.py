@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "apps.users.apps.UsersConfig",
+    "apps.core.apps.CoreConfig",
 ]
 
 MIDDLEWARE = [
@@ -47,7 +48,7 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-ROOT_URLCONF = "apps.core.urls"
+ROOT_URLCONF = "urls"
 
 TEMPLATES = [
     {
@@ -64,7 +65,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = "apps.core.wsgi.application"
+WSGI_APPLICATION = "wsgi.application"
 
 
 # Database
@@ -113,5 +114,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 STATIC_URL = "static/"
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+]
 STATIC_ROOT = BASE_DIR / "staticfiles"
 AUTH_USER_MODEL = "users.User"

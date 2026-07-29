@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}Delete Health Metric #{{ object.pk }} — Medical App{% endblock %}
+
+{% block content %}
+<div class="card delete-card">
+  <div class="card-header">
+    <h2 class="card-title" style="color: var(--danger);">Confirm Deletion</h2>
+  </div>
+
+  <p style="margin-bottom: 1.25rem; font-size: 1rem; color: var(--text-main);">
+    Are you sure you want to permanently delete this health metric record?
+  </p>
+
+  <div style="background-color: var(--background); padding: 1rem 1.25rem; border-radius: var(--radius-md); border: 1px solid var(--border); margin-bottom: 1.5rem;">
+    <div style="font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600; margin-bottom: 0.25rem;">Record Summary</div>
+    <div style="font-weight: 600;">
+      {{ object.get_metric_type_display|default:object.metric_type }}: {{ object.value }} {{ object.unit }}
+    </div>
+    <div style="font-size: 0.9rem; color: var(--text-muted); margin-top: 0.25rem;">
+      Patient: {{ object.patient }} | Recorded: {{ object.measured_at|date:"M d, Y H:i" }}
+    </div>
+  </div>
+
+  <form method="post">
+    {% csrf_token %}
+    <div style="display: flex; justify-content: flex-end; gap: 1rem;">
+      <a href="{% url 'health_metric_detail' object.pk %}" class="btn btn-secondary">Cancel</a>
+      <button type="submit" class="btn btn-danger">Confirm Delete</button>
+    </div>
+  </form>
+</div>
+{% endblock %}

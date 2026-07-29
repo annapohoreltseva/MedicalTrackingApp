@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}About — Medical App{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <div>
+    <h1 class="page-title">About MedicalApp</h1>
+    <p class="page-subtitle">A comprehensive platform for patient health tracking and vitals management.</p>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-header">
+    <h2 class="card-title">Our Mission</h2>
+  </div>
+  <p style="color: var(--text-muted); line-height: 1.8; margin-bottom: 1.25rem;">
+    MedicalApp is designed to streamline patient health metric collection and monitoring for medical professionals and patients alike. By keeping structured records of blood pressure, blood glucose, temperature, heart rate, and custom metrics, healthcare providers can detect trends early and deliver personalized care.
+  </p>
+
+  <h3 style="font-size: 1.1rem; font-weight: 600; margin: 1.5rem 0 0.75rem 0;">Key Capabilities</h3>
+  <ul style="color: var(--text-muted); line-height: 1.8; padding-left: 1.25rem; margin-bottom: 1.5rem;">
+    <li>Continuous tracking of patient vital signs and metric history</li>
+    <li>Categorized metric types with precise measurement units</li>
+    <li>Timestamps and practitioner notes for full context</li>
+    <li>Responsive user interface accessible across desktop and tablet devices</li>
+  </ul>
+
+  <div style="background-color: var(--primary-light); padding: 1.25rem; border-radius: var(--radius-md); border-left: 4px solid var(--primary);">
+    <strong style="color: var(--primary-hover); display: block; margin-bottom: 0.25rem;">🔒 Data Privacy & Security</strong>
+    <p style="color: var(--text-main); font-size: 0.95rem; margin: 0;">
+      All patient metrics are associated with authenticated user profiles and strictly compartmentalized to protect medical confidentiality.
+    </p>
+  </div>
+</div>
+{% endblock %}

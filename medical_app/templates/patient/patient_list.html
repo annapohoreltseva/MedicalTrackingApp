@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block title %}Patients — Medical App{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <div>
+    <h1 class="page-title">Patients Directory</h1>
+    <p class="page-subtitle">Registered patient profiles</p>
+  </div>
+  <div>
+    <a href="{% url 'patient_create' %}" class="btn btn-primary">+ Add New Patient</a>
+  </div>
+</div>
+
+{% if patients %}
+<div class="table-container">
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Patient Name</th>
+        <th>Username</th>
+        <th>Email</th>
+        <th>Role</th>
+        <th style="text-align: right;">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for patient in patients %}
+      <tr>
+        <td>#{{ patient.id }}</td>
+        <td>
+          <strong>{{ patient.get_full_name|default:patient.username }}</strong>
+        </td>
+        <td>{{ patient.username }}</td>
+        <td>{{ patient.email|default:"N/A" }}</td>
+        <td><span class="badge badge-primary">{{ patient.get_role_display|default:patient.role }}</span></td>
+        <td style="text-align: right;">
+          <a href="{% url 'health_metric_create' %}" class="btn btn-secondary btn-sm">+ Record Metric</a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% else %}
+<div class="empty-state">
+  <div class="empty-icon">👤</div>
+  <h2 class="empty-title">No patients registered yet</h2>
+  <p class="empty-description">
+    Register your first patient profile to start tracking vitals and health metrics.
+  </p>
+  <a href="{% url 'patient_create' %}" class="btn btn-primary">+ Add First Patient</a>
+</div>
+{% endif %}
+{% endblock %}

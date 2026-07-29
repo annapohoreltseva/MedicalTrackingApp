@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block title %}Doctors — Medical App{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <div>
+    <h1 class="page-title">Doctors Directory</h1>
+    <p class="page-subtitle">Registered medical specialists and practitioners</p>
+  </div>
+  <div>
+    <a href="{% url 'doctor_create' %}" class="btn btn-primary">+ Add New Doctor</a>
+  </div>
+</div>
+
+{% if doctors %}
+<div class="table-container">
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Doctor Name</th>
+        <th>Specialty</th>
+        <th>Username</th>
+        <th>Email</th>
+        <th>Role</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for doctor in doctors %}
+      <tr>
+        <td>#{{ doctor.id }}</td>
+        <td>
+          <strong>{% if doctor.doctorprofile and doctor.doctorprofile.first_name %}Dr. {{ doctor.doctorprofile.first_name }} {{ doctor.doctorprofile.last_name }}{% else %}{{ doctor.get_full_name|default:doctor.username }}{% endif %}</strong>
+        </td>
+        <td>
+          <span class="badge badge-success">{{ doctor.doctorprofile.specialty|default:"General Medicine" }}</span>
+        </td>
+        <td>{{ doctor.username }}</td>
+        <td>{{ doctor.email|default:"N/A" }}</td>
+        <td><span class="badge badge-primary">{{ doctor.get_role_display|default:doctor.role }}</span></td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% else %}
+<div class="empty-state">
+  <div class="empty-icon">🩺</div>
+  <h2 class="empty-title">No doctors registered yet</h2>
+  <p class="empty-description">
+    Register your first doctor profile to manage healthcare practitioners in the system.
+  </p>
+  <a href="{% url 'doctor_create' %}" class="btn btn-primary">+ Add First Doctor</a>
+</div>
+{% endif %}
+{% endblock %}

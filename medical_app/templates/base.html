@@ -1,0 +1,43 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Medical Tracking App{% endblock %}</title>
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+  {% block extra_head %}{% endblock %}
+</head>
+<body>
+  <header class="app-header">
+    <div class="nav-container">
+      <a href="{% url 'home' %}" class="brand">
+        <div class="brand-icon">+</div>
+        <span>MedicalApp</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="{% url 'home' %}" class="nav-link">Home</a></li>
+        <li><a href="{% url 'patient_list' %}" class="nav-link">Patients</a></li>
+        <li><a href="{% url 'doctor_list' %}" class="nav-link">Doctors</a></li>
+        <li><a href="{% url 'health_metric' %}" class="nav-link">Health Metrics</a></li>
+        <li><a href="{% url 'about' %}" class="nav-link">About</a></li>
+        <li><a href="{% url 'health_metric_create' %}" class="nav-link nav-btn">+ Record Metric</a></li>
+      </ul>
+
+    </div>
+  </header>
+
+  <main class="main-content">
+    {% block content %}
+    {% endblock %}
+  </main>
+
+  <footer class="app-footer">
+    <div class="container">
+      <p>&copy; {% now "Y" %} MedicalApp — Patient Health Metric Tracking. All rights reserved.</p>
+    </div>
+  </footer>
+
+  {% block extra_scripts %}{% endblock %}
+</body>
+</html>

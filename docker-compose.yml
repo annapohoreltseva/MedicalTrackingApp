@@ -1,6 +1,8 @@
 services:
   backend:
     build: .
+    volumes:
+      - .:/medical_app
     ports:
       - "8000:8000"
     env_file:

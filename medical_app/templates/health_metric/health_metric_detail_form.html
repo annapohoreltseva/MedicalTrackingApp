@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  {% if object %}Edit Metric #{{ object.pk }}{% else %}Record New Health Metric{% endif %} — Medical App
+{% endblock %}
+
+{% block content %}
+<div class="form-container">
+  <div class="page-header">
+    <div>
+      <h1 class="page-title">
+        {% if object %}Edit Health Metric{% else %}Record New Health Metric{% endif %}
+      </h1>
+      <p class="page-subtitle">
+        {% if object %}Update existing measurement details for patient {{ object.patient }}.{% else %}Enter vitals or health reading data below.{% endif %}
+      </p>
+    </div>
+  </div>
+
+  <div class="card">
+    <form method="post" novalidate>
+      {% csrf_token %}
+
+      {% if patients_count == 0 %}
+        <div style="background-color: var(--warning-light); border: 1px solid var(--warning); padding: 1.25rem; border-radius: var(--radius-md); margin-bottom: 1.5rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;">
+          <div>
+            <strong style="color: #92400e; display: block; font-size: 1rem;">⚠️ No Patients Found</strong>
+            <span style="color: #78350f; font-size: 0.9rem;">You need to register at least one patient before adding health metrics.</span>
+          </div>
+          <a href="{% url 'patient_create' %}?next={{ request.path }}" class="btn btn-primary btn-sm">+ Add New Patient</a>
+        </div>
+      {% endif %}
+
+      {% if form.non_field_errors %}
+        <div style="background-color: var(--danger-light); color: var(--danger); padding: 1rem; border-radius: var(--radius-md); margin-bottom: 1.5rem;">
+          {{ form.non_field_errors }}
+        </div>
+      {% endif %}
+
+      {% for field in form %}
+        <div class="form-group">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+            <label for="{{ field.id_for_label }}" class="form-label" style="margin-bottom: 0;">
+              {{ field.label }}
+              {% if field.field.required %}<span style="color: var(--danger);">*</span>{% endif %}
+            </label>
+            {% if field.name == 'patient' %}
+              <a href="{% url 'patient_create' %}?next={{ request.path }}" style="font-size: 0.85rem; font-weight: 600; color: var(--primary);">+ Add New Patient</a>
+            {% endif %}
+          </div>
+          
+          {{ field }}
+
+          {% if field.help_text %}
+            <div class="form-help">{{ field.help_text }}</div>
+          {% endif %}
+
+          {% if field.errors %}
+            <ul class="form-errors">
+              {% for error in field.errors %}
+                <li>{{ error }}</li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+        </div>
+      {% endfor %}
+
+
+      <div class="form-actions">
+        <a href="{% if object %}{% url 'health_metric_detail' object.pk %}{% else %}{% url 'health_metric' %}{% endif %}" class="btn btn-secondary">
+          Cancel
+        </a>
+        <button type="submit" class="btn btn-primary">
+          {% if object %}Save Changes{% else %}Save Health Metric{% endif %}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

@@ -3,8 +3,8 @@ from pathlib import Path
 
 import environ
 
-ROOT_PATH = Path(__file__).resolve().parent.parent.parent.parent.parent.parent
-BASE_DIR = ROOT_PATH / "medical_app"
+BASE_DIR = Path(__file__).resolve().parent.parent.parent.parent
+ROOT_PATH = BASE_DIR.parent
 APPS_DIR = BASE_DIR / "apps"
 
 env = environ.Env(
@@ -19,7 +19,7 @@ env_file = ROOT_PATH / ".env"
 if os.path.exists(env_file):
     env.read_env(env_file)
 
-# Exported settings 
+# Exported settings
 SECRET_KEY = env("SECRET_KEY")
 DEBUG = env("DEBUG")
 ALLOWED_HOSTS = env("ALLOWED_HOSTS")
